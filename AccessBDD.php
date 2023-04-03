@@ -90,7 +90,7 @@ class AccessBDD {
         $param = array(
                 "id" => $id 
         );
-        $req = "select u.login, u.pwd , s.libelle ";
+        $req = "select u.login, u.pwd, s.libelle as service ";
         $req .= "from utilisateur u join service s on s.id=u.serviceId ";
         $req .= "where u.login =:id  ";     
         return $this->conn->query($req, $param);
