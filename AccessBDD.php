@@ -40,6 +40,8 @@ class AccessBDD {
                     return $this->selectAllRevues();
                 case "exemplaire" :
                     return $this->selectAllExemplairesRevue();
+                case "finabonnement" :
+                    return $this->selectAllFinAbonnement();
                 default:
                     // cas d'un select portant sur une table simple, avec tri sur le libellé
                     return $this->selectAllTableSimple($table);
@@ -60,6 +62,12 @@ class AccessBDD {
             switch($table){
                 case "exemplaire" :
                     return $this->selectAllExemplairesRevue($id);
+                case "commandedocument" :
+                    return $this->selectAllCommandesDocument($id);
+                case "abonnement" :
+                    return $this->selectAllAbonnementsRevues($id);
+                case "utilisateur":
+                    return $this->selectUtilisateur($id);
                 default:
                     // cas d'un select portant sur une table simple			
                     $param = array(
@@ -71,6 +79,22 @@ class AccessBDD {
                 return null;
         }
     }
+
+    /**
+     * récupération d'un utilisateur
+     * @param string $id de l'utilisateur
+     * @return lignes de la requete
+     */
+    public function selectUtilisateur($id)
+    {
+        $param = array(
+                "id" => $id 
+        );
+        $req = "select u.login, u.pwd , s.libelle ";
+        $req .= "from utilisateur u join service s on s.id=u.serviceId ";
+        $req .= "where u.login =:id  ";     
+        return $this->conn->query($req, $param);
+    }   
 
     /**
      * récupération de toutes les lignes de d'une table simple (sans jointure) avec tri sur le libellé
@@ -141,7 +165,55 @@ class AccessBDD {
         $req .= "where e.id = :id ";
         $req .= "order by e.dateAchat DESC";		
         return $this->conn->query($req, $param);
-    }		
+    }	
+    
+    /**
+     * récupération de tous les commandes d'un document
+     * @param string $id id du document
+     * @return lignes de la requete
+     */
+    public function selectAllCommandesDocument($id){
+        $param = array(
+                "id" => $id
+        );        
+        $req = "select l.nbExemplaire, l.idLivreDvd, l.idSuivi, s.libelle, l.id, c.dateCommande as dateCommande, c.montant as montant ";
+        $req .= "from commandedocument l join suivi s on s.id=l.idSuivi ";
+        $req .= "left join commande c on l.id=c.id ";
+        $req .= "where l.idLivreDvd = :id ";
+        $req .= "group by l.id ";
+        $req .= "order by dateCommande DESC";
+        return $this->conn->query($req, $param);
+    }	
+
+/**
+     * récupération de tout les abonnements arrivant à échéance dans 30 jours
+     * @return lignes de la requête
+     */
+    public function selectAllFinAbonnement(){
+        $req ="select a.dateFinAbonnement, a.idRevue, d.titre ";
+        $req .="from abonnement a ";
+        $req .="join revue r on a.idRevue = r.id ";
+        $req .="join document d on r.id = d.id ";
+        $req .="where datediff(current_date(), a.dateFinAbonnement) < 30 ";
+        $req .="order by a.dateFinAbonnement ASC; ";
+        return $this->conn->query($req);
+    } 
+
+    /**
+     * récupération de tout les abonnements d'une revue
+     * @param string $id id de l'abonnement de la revue concernée
+     * @return lignes de la requete
+     */
+    public function selectAllAbonnementsRevues($id){
+        $param = array(
+                "id" => $id
+        );
+        $req = "select c.id, c.dateCommande, c.montant, a.dateFinAbonnement, a.idRevue ";
+        $req .= "from commande c join abonnement a ON c.id=a.id ";
+        $req .= "where a.idRevue= :id ";
+        $req .= "order by c.dateCommande DESC ";
+        return $this->conn->query($req, $param);
+    }
 
     /**
      * suppresion d'une ou plusieurs lignes dans une table
