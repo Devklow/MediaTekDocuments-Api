@@ -1,24 +1,0 @@
-
-Z	php:S1131"@Remove the useless trailing whitespaces at the end of this line.(Šşåœûÿÿÿÿ
-d	php:S1808"JPut one space between the closing parenthesis and the opening curly brace.(·Ê’™ùÿÿÿÿ
-_	php:S1808"JPut one space between the closing parenthesis and the opening curly brace.(Í›Áè
-_	php:S1808"JPut one space between the closing parenthesis and the opening curly brace.(¬¦„È
-_	php:S1808""JPut one space between the closing parenthesis and the opening curly brace.(–û‚…
-d	php:S1808$"JPut one space between the closing parenthesis and the opening curly brace.(ÕÜ›òıÿÿÿÿ
-_	php:S1808&"JPut one space between the closing parenthesis and the opening curly brace.(Ëéı§
-^	php:S1808("JPut one space between the closing parenthesis and the opening curly brace.(³õ3
-K	php:S1808"6Put exactly one space after comma separated arguments.(¦­Æ
-P	php:S1808"6Put exactly one space after comma separated arguments.(¸¤Èşÿÿÿÿ
-^	php:S1808"DPut one space between this "if" keyword and the opening parenthesis.(·Ê’™ùÿÿÿÿ
-^	php:S1808"DPut one space between this "if" keyword and the opening parenthesis.(Šşåœûÿÿÿÿ
-[	php:S1808"FPut one space between this "else" keyword and the opening curly brace.(å¥‡
-Y	php:S1808"DPut one space between this "if" keyword and the opening parenthesis.(¬¦„È
-Y	php:S1808""DPut one space between this "if" keyword and the opening parenthesis.(–û‚…
-^	php:S1808$"DPut one space between this "if" keyword and the opening parenthesis.(ÕÜ›òıÿÿÿÿ
-Y	php:S1808&"DPut one space between this "if" keyword and the opening parenthesis.(Ëéı§
-X	php:S1808("DPut one space between this "if" keyword and the opening parenthesis.(³õ3
-6	php:S1110"!Remove these useless parentheses.(Í›Áè
-V	php:S1793$"<Replace this "else if" keyword sequence by "elseif" keyword.(ÕÜ›òıÿÿÿÿ
-Q	php:S1793&"<Replace this "else if" keyword sequence by "elseif" keyword.(Ëéı§
-P	php:S1793("<Replace this "else if" keyword sequence by "elseif" keyword.(³õ3
-f	php:S4833"QReplace "include_once" with namespace import mechanism through the "use" keyword.(ÔÚ–È
